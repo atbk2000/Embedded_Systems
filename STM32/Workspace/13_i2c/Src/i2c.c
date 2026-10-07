@@ -10,14 +10,17 @@
 /*
  * PA9: I2C1_SCL (alternate function 4)
  * PA10: I2C1_SDA, (alternate function 4)
+ * Pin assignment:
+ * PA9 (stm32) -> D1 (Arduino Nano)
+ * PA10 (stm32) -> D0 (Arduino Nano)
  * */
 
-void i2c_init(void){
+void I2C1_init(void){
 
 	// Enable clock access to GPIOA
 	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
 
-	// Set PA9 and PA10 to alternate function mode
+	// Set PA9 and PA10 to alternate function mode (10)
 	GPIOA->MODER &= ~(1U << 18);
 	GPIOA->MODER |= (1U << 19);
 	GPIOA->MODER &= ~(1U << 20);
@@ -35,7 +38,7 @@ void i2c_init(void){
 	GPIOA->OTYPER |= GPIO_OTYPER_OT9;
 	GPIOA->OTYPER |= GPIO_OTYPER_OT10;
 
-	// Enable Pullup for PA9 and PA10
+	// Enable Pullup for PA9 and PA10 (01)
 	GPIOA->PUPDR |= GPIO_PUPDR_PUPD9_0;
 	GPIOA->PUPDR &= ~GPIO_PUPDR_PUPD9_1;
 	GPIOA->PUPDR |= GPIO_PUPDR_PUPD10_0;
